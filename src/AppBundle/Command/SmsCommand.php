@@ -48,6 +48,21 @@ class SmsCommand extends ContainerAwareCommand {
     
     if (count($appointments) > 0) {
       $output->writeln('SMSes to send: #' . count($appointments));
+
+      $sender = $this->getContainer()->getParameter('twilio_number');
+      foreach ($appointments as $appoint) {
+        $user = $appoint->getUser();
+        $message = $this->twilio->messages->create(
+          $user->getPhoneNumber(), // Send text to this number
+          array(
+            'from' => $sender,
+            'body' => 'Hello from Awesome Massages. A reminder that your massage appointment is for today at ' . $appoint->getDate()->format('H:i') . '. Call ' . $sender . ' for any questions.'
+          )
+        );
+
+        $output->writeln('SMS #' . $message->sid . ' sent to: ' . $user->getPhonNumber());
+      }
+      
     } else {
       $output->writeln('No appointments for today.');
     }
