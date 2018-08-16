@@ -33,3 +33,9 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    twilio.client:
+        class: Twilio\Rest\Client
+        arguments: ['%twilio_sid%', '%twilio_token%']
+
+    Twilio\Rest\Client: '@twilio.client'

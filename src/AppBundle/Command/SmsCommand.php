@@ -6,8 +6,17 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use \Twilio\Rest\Client;
 
 class SmsCommand extends ContainerAwareCommand {
+  private $twilio;
+
+  public function __construct(Client $twilio) {
+    $this->twilio = $twilio;
+
+    parent::__construct();
+  }
+
   protected function configure() {
     $this->setName('myapp:sms')
          ->setDescription('Send reminder text message');
@@ -17,6 +26,7 @@ class SmsCommand extends ContainerAwareCommand {
     $em = $this->getContainer()->get('doctrine');
     $userRepository = $em->getRepository('AppBundle:User');
     $appointmentRepository = $em->getRepository('AppBundle:Appointment');
+    //$twilio = $this->getContainer()->get('twilio.client');
 
     $start = new \DateTime();
     $start->setTime(00, 00);
