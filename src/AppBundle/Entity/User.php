@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  * 
+ * @ORM\Entity
  * @ORM\Table(name="user")
  */
 class User {
@@ -14,7 +15,7 @@ class User {
    * 
    * @ORM\Column(name="id", type="integer")
    * @ORM\Id
-   * @ORM\GenerateValue(strategy="AUTO")
+   * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
 
