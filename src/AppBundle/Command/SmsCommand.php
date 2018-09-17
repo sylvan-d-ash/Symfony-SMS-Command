@@ -60,7 +60,7 @@ class SmsCommand extends ContainerAwareCommand {
           )
         );
 
-        $output->writeln('SMS #' . $message->sid . ' sent to: ' . $user->getPhonNumber());
+        $output->writeln('SMS #' . $message->sid . ' sent to: ' . $user->getPhoneNumber());
       }
       
     } else {
